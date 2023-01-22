@@ -1,0 +1,163 @@
+let x = document.getElementById("sideBar");
+let y = document.getElementById("toggler");
+
+function opennav()
+{
+    let style = window.getComputedStyle(x);
+    let width = style.getPropertyValue('width');
+    if (width=="0px")
+    {
+        x.style.width="200px";
+        y.style.transform="translateX(200px)";
+    }
+    else
+    {
+        x.style.width="0px";
+        y.style.transform="translateX(0px)";
+    }
+}
+function closemessage()
+{
+    let msg = document.getElementById("succ");
+    msg.style.margin = "0px";
+    msg.style.height = "0px";
+    msg.style.opacity="0%";
+} 
+
+function deleteAlert(label, type, id, latedays, billed)
+{
+    if(id == undefined)
+    {
+        id='';
+    }
+    if(latedays == undefined)
+    {
+        latedays='';
+    }
+    if(billed == undefined)
+    {
+        billed='';
+    }
+    /*if(type == 'book')
+    {
+        window.location.href = "navcomp.php";
+    }*/
+    let text = "Are you sure you want to delete the "+type+": "+label+" ?";
+    if(confirm(text) == true)
+    {    
+        window.location.href=""+type+".php?action=delete&code="+label+"&user="+id+"&latedays="+latedays+"&billed="+billed+"";
+    }
+}
+
+function findgenreintarget()
+{
+    let search = document.getElementById("search_genres");
+    let filtered_search = search.value.toLowerCase();
+    let targets = document.getElementsByClassName('genre_target');
+    if(filtered_search.length ==0)
+    {
+        for(let i =0; i<targets.length; i++)
+        targets[i].style.backgroundColor = "transparent";
+    }
+    else{
+    for(let i = 0; i<targets.length; i++)
+    {
+        if(targets[i].innerText.toLowerCase().includes(filtered_search))
+        {
+            targets[i].style.backgroundColor = "rgb(21, 162, 243)";
+            targets[i].style.borderRadius = "3px";
+        }
+        else 
+        {
+            targets[i].style.backgroundColor= "transparent";
+        }
+    }
+    }
+}
+
+function findauthorintarget()
+{
+    let search = document.getElementById("search_authors");
+    let filtered_search = search.value.toLowerCase();
+    let targets = document.getElementsByClassName('author_target');
+    if(filtered_search.length ==0)
+    {
+        for(let i =0; i<targets.length; i++)
+        targets[i].style.backgroundColor = "transparent";
+    }
+    else{
+    for(let i = 0; i<targets.length; i++)
+    {
+        if(targets[i].innerText.toLowerCase().includes(filtered_search))
+        {
+            targets[i].style.backgroundColor = "rgb(21, 162, 243)";
+            targets[i].style.borderRadius = "3px";
+        }
+        else 
+        {
+            targets[i].style.backgroundColor= "transparent";
+        }
+    }
+    }
+}
+
+function pwdmatching()
+{
+    console.log('tap');
+    let symbol = document.getElementById('symbol')
+    let password_fields = document.getElementsByClassName('password')
+    let confirm_passwords = document.getElementsByClassName('confirm_password')
+    let confirm_password = confirm_passwords[0].value
+    let password_field = password_fields[0].value
+
+    if(confirm_password.length==0) symbol.style.visibility = 'hidden'
+    else
+    {
+        symbol.style.visibility = 'visible'
+        if(confirm_password == password_field)
+        {
+            symbol.innerHTML ='<b style="color: green; font-weight:bolder;">&check;</b>'
+        }
+        else{
+            symbol.innerHTML ='&#10060;'
+        }
+    }  
+}
+
+function toggleVis()
+{
+    let password = document.getElementById("user_password");
+    if(password.type === "password")
+    {
+        password.type = "text";
+    }
+    else
+    {
+        password.type = "password";
+    }
+}
+
+function removeEle()
+{
+    let popup = document.getElementById("popup");
+    popup.remove();
+}
+
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry)=>{
+        console.log(entry);
+        if(entry.isIntersecting){
+            entry.target.classList.add('show');
+        }else{
+            entry.target.classList.remove('show');
+        }
+
+    })
+   
+    
+}, {threshold: 0})  
+
+
+const animatableElements = document.querySelectorAll('.hidden_left, .hidden_right, .hidden, .hidden_bot, .hidden_top');
+
+animatableElements.forEach((el)=>observer.observe(el));
