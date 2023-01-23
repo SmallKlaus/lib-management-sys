@@ -96,8 +96,8 @@ if(isset($_POST['signup']))
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'oloka2018@gmail.com';
-            $mail->Password = 'eboxjjoxvvlrktjk'; //for google accounts API codes are used for security purposes
+            $mail->Username = 'libraryemail@gmail.com';
+            $mail->Password = 'password'; //for google accounts API codes are used for security purposes
             $mail->SMTPSecure = "tls";
             $mail->Port = 587;
             $mail->setFrom('SPierroLib@lib.com', 'LibraryMS');
